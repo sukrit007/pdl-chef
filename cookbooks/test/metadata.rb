@@ -10,7 +10,6 @@ recipe "test::default","Test Recipe"
 attribute "haproxy/action",
    :display_name => "HAProxy Action",
    :description => "Action :install :remove etc",
-   :required => "required",
    :choice => [":install",":remove"],
-   :default => [":install"],
+   :default => ":install",
    :recipes => ["test::default"]
