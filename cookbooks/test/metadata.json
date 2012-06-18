@@ -8,7 +8,6 @@
   "platforms": {
   },
   "dependencies": {
-    "rs_utils": ">= 0.0.0"
   },
   "recommendations": {
   },
@@ -21,6 +20,23 @@
   "replacing": {
   },
   "attributes": {
+    "haproxy/action": {
+      "display_name": "HAProxy Action",
+      "description": "Action :install :remove etc",
+      "required": "required",
+      "choice": [
+        ":install",
+        ":remove"
+      ],
+      "default": [
+        ":install"
+      ],
+      "recipes": [
+        "test::default"
+      ],
+      "calculated": false,
+      "type": "string"
+    }
   },
   "groupings": {
   },

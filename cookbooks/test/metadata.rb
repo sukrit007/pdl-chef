@@ -5,4 +5,12 @@ description      "Installs/Configures test"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "0.0.1"
 recipe "test::default","Test Recipe"  
-depends "rs_utils"
+
+# Required Input #
+attribute "haproxy/action",
+   :display_name => "HAProxy Action",
+   :description => "Action :install :remove etc",
+   :required => "required",
+   :choice => [":install",":remove"],
+   :default => [":install"],
+   :recipes => ["test::default"]
