@@ -6,3 +6,12 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+
+Chef::Log.info "HAProxy : #{node["haproxy"]["action"]} ..."
+
+package "haproxy" do
+  action node["haproxy"]["action"]
+end
+
+Chef::Log.info 'Finished Installing HAProxy'
+
