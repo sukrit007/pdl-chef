@@ -21,8 +21,7 @@ when "centos"
   end
   
   package "rpmlib" do
-    action :install
-    provider Chef::Provider::Package::Rpm    
+    action :install        
   end
   
   package "pgdg" do
