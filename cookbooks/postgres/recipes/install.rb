@@ -20,6 +20,11 @@ when "centos"
     source node["pgdg"]  
   end
   
+  package "rpmlib" do
+    action :install
+    provider Chef::Provider::Package::Rpm    
+  end
+  
   package "pgdg" do
     action :install
     source "/tmp/pgdg.rpm"
