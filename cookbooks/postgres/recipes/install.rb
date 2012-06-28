@@ -12,23 +12,10 @@ Chef::Log.info node.keys
 
 Chef::Log.info "Installing Postgres on #{node["platform"]}-#{node["platform_version"]}"
 
-case node["platform"].downcase 
+case node["platform"] 
 when "centos"
   raise "Unsupported CentOS version:#{node["platform_version"]}" unless (5.0...6.0).include? node["platform_version"].to_f 
-  cookbook_file "/tmp/pgdg.rpm" do
-    action :create
-    source node["pgdg"]  
-  end
-  
-   
-  package "pgdg" do
-    action :install
-    source "/tmp/pgdg.rpm"
-    provider Chef::Provider::Package::Rpm
-    options "-v -h"
-    #flush_cache :after => true
-  end   
-   
+     
 when "ubuntu"
   raise "Unsupported Ubuntu version:#{node["platform_version"]}" unless (12.0...13.0).include? node["platform_version"].to_f 
   Chef::Log.info "Skip pgdg on Ubuntu"
@@ -38,9 +25,44 @@ else
 end
 
 
-package node["postgresql"]["package"] do
+cookbook_file "/tmp/pgdg.rpm" do
+  action :create
+  source node["pgdg"]  
+  only_if { node["platform"] == "centos" }
+end
+
+ 
+package "pgdg" do
   action :install
-  
+  source "/tmp/pgdg.rpm"
+  provider Chef::Provider::Package::Rpm
+  options "-v -h"
+  only_if { node["platform"] == "centos" }
+  #flush_cache :after => true
+end   
+
+package node["postgresql"]["package"]["base"] do
+  action :install
+    
+end
+
+package node["postgresql"]["package"]["server"] do
+  action :install
+  only_if { node["platform"] == "centos" }  
+end
+
+package node["postgresql"]["package"]["libs"] do
+  action :install 
+  only_if { node["platform"] == "centos" } 
+end
+
+package node["postgresql"]["package"]["contrib"] do
+  action :install   
+end
+
+package node["postgresql"]["package"]["devel"] do
+  action :install
+  only_if { node["platform"] == "centos" }  
 end
 
 
