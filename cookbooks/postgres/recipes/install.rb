@@ -25,7 +25,7 @@ when "centos"
     action :install
     source "/tmp/pgdg.rpm"
     provider Chef::Provider::Package::Rpm
-    options "-v -h --force-yes"
+    options "-v -h"
     #flush_cache :after => true
   end   
    
