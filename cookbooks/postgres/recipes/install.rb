@@ -24,6 +24,7 @@ when "centos"
     action :install
     source "/tmp/pgdg.rpm"
     provider Chef::Provider::Package::Rpm
+    flush_cache :after => true
   end   
    
 when "ubuntu"
