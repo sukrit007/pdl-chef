@@ -16,7 +16,7 @@ case node["platform"].downcase
 when "centos"
   raise "Unsupported CentOS version:#{node["platform_version"]}" unless (5.0...6.0).include? node["platform_version"].to_f 
   cookbook_file "/tmp/pgdg.rpm" do
-    action :install
+    action :create
     source node["pgdg"]  
   end
   
