@@ -10,7 +10,7 @@
 Chef::Log.info node.keys
 
 
-Chef::Log.info "Installing Postgres on #{node["platform"]}-#{node["platform_version"]}"
+Chef::Log.info "Installing Postgres on #{node["platform"]}-#{node["platform_version"]}.  Previous Install:#{node["postgresql"]["install"]}"
 
 case node["platform"] 
 when "centos"
@@ -23,6 +23,8 @@ else
     
     raise "Unsupported Platform"
 end
+
+
 
 
 cookbook_file "/tmp/pgdg.rpm" do
@@ -63,6 +65,15 @@ end
 package node["postgresql"]["package"]["devel"] do
   action :install
   only_if { node["platform"] == "centos" }  
+end
+
+
+ruby_block "postgres_install_successful" do
+  block do
+    node.set["postgresql"]["install"]=true
+    node.save
+  end
+  only_if { node["postgresql"]["save-node-config"]}
 end
 
 

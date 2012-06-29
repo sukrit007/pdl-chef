@@ -1,5 +1,4 @@
-
-
+default["postgresql"]["save-node-config"] = true
 case node["platform"] 
   when "centos"
     default["pgdg"]="pgdg-centos91-9.1-4.noarch.rpm"
