@@ -7,9 +7,11 @@ case node["platform"]
     default["postgresql"]["package"]["libs"]="#{default["postgresql"]["package"]["base"]}-libs"
     default["postgresql"]["package"]["contrib"]="#{default["postgresql"]["package"]["base"]}-contrib"
     default["postgresql"]["package"]["devel"]="#{default["postgresql"]["package"]["base"]}-devel"
+    default["postgresql"]["package-options"]="--nogpgcheck"
   when "ubuntu"
     default["postgresql"]["package"]["base"]="postgresql-9.1"
     default["postgresql"]["package"]["contrib"]="postgresql-contrib-9.1"
+    default["postgresql"]["package-options"]=""
 end
 
 
