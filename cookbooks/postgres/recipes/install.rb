@@ -45,25 +45,30 @@ end
 
 package node["postgresql"]["package"]["base"] do
   action :install
-    
+  options "--nogpgcheck"
 end
 
 package node["postgresql"]["package"]["server"] do
   action :install
+  options "--nogpgcheck"
   only_if { node["platform"] == "centos" }  
+  
 end
 
 package node["postgresql"]["package"]["libs"] do
   action :install 
+  options "--nogpgcheck"
   only_if { node["platform"] == "centos" } 
 end
 
 package node["postgresql"]["package"]["contrib"] do
-  action :install   
+  action :install  
+  options "--nogpgcheck" 
 end
 
 package node["postgresql"]["package"]["devel"] do
   action :install
+  options "--nogpgcheck"
   only_if { node["platform"] == "centos" }  
 end
 
